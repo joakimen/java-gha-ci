@@ -83,7 +83,7 @@
   <scm>
     <connection>scm:git:${project.scm.url}</connection>
     <developerConnection>scm:git:${project.scm.url}</developerConnection>
-    <url>https://joakimen@github.com/java-gha-ci.git</url>
+    <url>https://github.com/joakimen/java-gha-ci.git</url>
     <tag>v0.0.1</tag>
   </scm>
 </project>
