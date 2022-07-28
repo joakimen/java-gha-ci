@@ -1,0 +1,24 @@
+name: Build package
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'zulu'
+        java-version: '11'
+        cache: 'maven'
+        server-id: github
+        server-username: GH_PACKAGES_USER
+        server-password: GH_PACKAGES_TOKEN
+
+    - name: Build project
+      run: mvn -B deploy
+      env:
+        GH_PACKAGES_USER: ${{ secrets.GH_PACKAGES_USER }}
+        GH_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
