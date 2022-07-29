@@ -1,4 +1,4 @@
-name: Build image using Jib
+name: Build image using Dockerfile
 on: workflow_dispatch
 jobs:
   build:
