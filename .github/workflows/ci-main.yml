@@ -48,7 +48,10 @@ jobs:
         images: |
           ghcr.io/joakimen/java-gha-ci
         tags: |
+          type=ref,event=branch
+          type=ref,event=pr
           type=semver,pattern={{version}}
+          type=semver,pattern={{major}}.{{minor}}
           type=sha
 
     - name: Login to ghcr.io
