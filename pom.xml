@@ -9,7 +9,7 @@
   </parent>
   <groupId>com.example</groupId>
   <artifactId>java-gha-ci</artifactId>
-  <version>0.0.7</version>
+  <version>0.0.8-SNAPSHOT</version>
   <name>java-gha-ci</name>
   <description>Demo project for Spring Boot</description>
   <properties>
@@ -89,6 +89,6 @@
     <connection>scm:git:${project.scm.url}</connection>
     <developerConnection>scm:git:${project.scm.url}</developerConnection>
     <url>https://github.com/joakimen/java-gha-ci.git</url>
-    <tag>v0.0.7</tag>
+    <tag>v0.0.1</tag>
   </scm>
 </project>
