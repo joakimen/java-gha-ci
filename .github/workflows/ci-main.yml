@@ -16,7 +16,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-
     - name: Configure Git
       run: |
         git config --global user.email "actions@github.com"
@@ -32,20 +31,38 @@ jobs:
         server-username: GH_PACKAGES_USER
         server-password: GH_PACKAGES_TOKEN
 
-    - name: maven - build
-      run: mvn -B package --file pom.xml
+    - name: Build project and upload package
+      run: |
+        mvn -B package --file pom.xml
+        mvn -B release:prepare
+        mvn -B release:perform
       env:
         GH_PACKAGES_USER: ${{ secrets.GH_PACKAGES_USER }}
         GH_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
 
-    - name: maven - prepare release
-      run: mvn -B release:prepare
-      env:
-        GH_PACKAGES_USER: ${{ secrets.GH_PACKAGES_USER }}
-        GH_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+    - name: Prepare Docker metadata
+      if: github.event_name != 'pull_request'
+      id: meta
+      uses: docker/metadata-action@v4
+      with:
+        images: |
+          ghcr.io/joakimen/java-gha-ci
+        tags: |
+          type=semver,pattern={{version}}
+          type=sha
 
-    - name: maven - perform release
-      run: mvn -B release:perform
-      env:
-        GH_PACKAGES_USER: ${{ secrets.GH_PACKAGES_USER }}
-        GH_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+    - name: Login to ghcr.io
+      if: github.event_name != 'pull_request'
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ secrets.GH_PACKAGES_USER }}
+        password: ${{ secrets.GH_PACKAGES_TOKEN }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v3
+      with:
+        context: .
+        push: ${{ github.event_name != 'pull_request' }}
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
