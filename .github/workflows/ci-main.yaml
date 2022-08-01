@@ -46,6 +46,7 @@ jobs:
           type=ref,event=tag
           type=sha
           type=raw,value=latest,enable={{is_default_branch}}
+          type=raw,value=${{ github.sha }}-${{ github.run_number }}
 
     - name: Login to ghcr.io
       if: github.event_name != 'pull_request'
