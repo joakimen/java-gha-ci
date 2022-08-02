@@ -14,6 +14,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    - name: Get short version of sha
+        id: vars
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
     steps:
     - uses: actions/checkout@v3
 
@@ -44,9 +48,8 @@ jobs:
           type=ref,event=branch
           type=ref,event=pr
           type=ref,event=tag
-          type=sha
+          type=raw,value=${{ steps.vars.outputs.sha_short }}-${{ github.run_id }}
           type=raw,value=latest,enable={{is_default_branch}}
-          type=raw,value=${{ github.sha }}-${{ github.run_number }}
 
     - name: Login to ghcr.io
       if: github.event_name != 'pull_request'
