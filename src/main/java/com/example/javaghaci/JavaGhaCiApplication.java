@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class JavaGhaCiApplication {
 
 	public static void main(String[] args) {
-    final String s = "";
+		final String s = "";
 		SpringApplication.run(JavaGhaCiApplication.class, args);
 	}
 
