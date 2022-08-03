@@ -85,10 +85,4 @@
       <url>https://maven.pkg.github.com/joakimen/java-gha-ci</url>
     </repository>
   </distributionManagement>
-  <scm>
-    <connection>scm:git:${project.scm.url}</connection>
-    <developerConnection>scm:git:${project.scm.url}</developerConnection>
-    <url>https://github.com/joakimen/java-gha-ci.git</url>
-    <tag>v0.0.1</tag>
-  </scm>
 </project>
