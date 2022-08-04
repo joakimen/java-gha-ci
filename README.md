@@ -11,3 +11,4 @@ Example project demonstrating how to use Github Actions for a Java project, such
 - Using credentials to fetch dependency from private repository
 - Static code linting using [super-linter](https://github.com/github/super-linter)
 - Vulnerability scanning using [CodeQL](https://codeql.github.com/)
+
